@@ -19,7 +19,9 @@ class App extends StatelessWidget{
   Widget build(BuildContext context){
      List<String> tasks=<String>["to add a task tap + button"];
     return MaterialApp(
-    home:Scaffold(
+    home:DefaultTabController(
+      length:2,
+      child:Scaffold(
       appBar:AppBar(
         title:const Center(
           child:Text(
@@ -27,38 +29,30 @@ class App extends StatelessWidget{
             style:TextStyle(color:Colors.white)
             )
           ),
+          bottom:const TabBar(
+            tabs:[
+              Tab(child:Text("Pending",style:TextStyle(color:Colors.white))),
+              Tab(child:Text("Completed",style:TextStyle(color:Colors.white)))
+            ],
+            dividerColor:Colors.black,
+            indicatorColor:Colors.white,
+          ),
           backgroundColor:Colors.green[900]
       ),
-      body:Container( 
-      color:Colors.black,
-      child:ListView.builder(
-          itemCount:tasks.length,
-          prototypeItem:ListTile(
-            title:Text(
-              tasks.first,
-            style:const TextStyle(color:Colors.white)
+      body:TabBarView(
+        children:[
+          Container(
+            color:Colors.black,
+            child:const Text("Empty",style:TextStyle(color:Colors.white)),
+          ),
+           Container(
+            color:Colors.black,
+            child:const Text("Empty",style:TextStyle(color:Colors.white)),
             ),
-            ),
-            itemBuilder:(context,index){
-              return ListTile(
-                title:Text(
-                  tasks[index],
-                  style:const TextStyle(color:Colors.white)
-                  )
-              );
-            }
-
+        ]
       )
-      ),
-      floatingActionButton:FloatingActionButton(
-        onPressed:(){
-
-        },
-        backgroundColor: Colors.green[900],
-        foregroundColor: Colors.black,
-        child:const Icon(Icons.add)
-      ) ,
       )
-        );
+        )
+    );
   }
 }
