@@ -1,4 +1,7 @@
+
+
 import 'package:flutter/material.dart';
+
 void main()
 {
   runApp(const App());
@@ -12,12 +15,43 @@ bool isCompleted=false;
 Task(this.title,this.description);
 }
 
-class App extends StatelessWidget{
-  const App({super.key});
+class ListItem extends StatelessWidget{
+  const ListItem({super.key});
 
   @override
+  Widget build(BuildContext context) {
+    
+    return Container( 
+      color:Colors.grey[900],
+       child:ListTile(
+          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        tileColor:Colors.white,
+        leading:IconButton(icon:const Icon(Icons.check_box,color:Colors.white),onPressed:(){}),
+        title:const Center(child: Text("Todo item",style:TextStyle(color:Colors.white))),
+        trailing:IconButton(icon:const Icon(Icons.delete,color:Colors.white),onPressed:(){})
+        )
+        );
+    
+    
+  }
+
+
+}
+
+class App extends StatefulWidget{
+  const App({super.key});
+@override
+  State<StatefulWidget> createState() {
+    return Home();
+  }
+  
+  
+}
+
+class Home extends State<App>{
+  @override
   Widget build(BuildContext context){
-     List<String> tasks=<String>["to add a task tap + button"];
+   // List<Task> tasks=<Task>[Task("add a task","to add a task press +")];
     return MaterialApp(
     home:DefaultTabController(
       length:2,
@@ -37,14 +71,18 @@ class App extends StatelessWidget{
             dividerColor:Colors.black,
             indicatorColor:Colors.white,
           ),
-          backgroundColor:Colors.green[900]
+          backgroundColor:Colors.grey[900]
       ),
       body:TabBarView(
         children:[
           Container(
             color:Colors.black,
-            child:const Text("Empty",style:TextStyle(color:Colors.white)),
-          ),
+            child:ListView(
+            children:const <Widget>[
+              //Text("Todo")
+               ListItem()
+              ]
+        )),
            Container(
             color:Colors.black,
             child:const Text("Empty",style:TextStyle(color:Colors.white)),
@@ -55,4 +93,5 @@ class App extends StatelessWidget{
         )
     );
   }
+  
 }
